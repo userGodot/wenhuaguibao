@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>中华自然科学及其它优秀文化瑰宝</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/china.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript" src="js/Bubble.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="head clearfix">
+        <h1 class="pulll_left">中华自然科学及其它优秀文化瑰宝</h1>
+        <div class="menu menu2 pulll_left">
+            <ul>      
+                <li><a href="https://www.ihchina.cn">中华非物质文化遗产</a></li>
+                <li><a href="https://ltfc.net/home">中华珍宝馆</a></li>
+                <li><a href="https://www.e-dunhuang.com/">数字敦煌</a></li>
+                <li><a href="https://www.shidianguji.com/">识典古籍</a></li>
+                <li><a href="https://inindex.com/biog">中国历代人物</a></li>
+            </ul>
+        </div>
+        <div class="time" id="showTime"></div>
+        <script>
+            var t = null;
+            t = setTimeout(time, 1000);
+            function time() {
+                clearTimeout(t);
+                dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours();
+                var m = dt.getMinutes();
+                var s = dt.getSeconds();
+                document.getElementById("showTime").innerHTML = y + "/" + mt + "/" + day + " " + h + ":" + m + ":" + s + "";
+                t = setTimeout(time, 1000);
+            } 
+        </script>
+    </div>
+    <div class="mainbox">
+        <ul class="clearfix nav1">
+            <li style="width: 22%">
+                <div class="box">
+                    <div class="tit">文化成就</div>
+                    <div class="boxnav" style="height: 200px;">
+                        <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td>四大发明</td>
+                                    <td><span class="text-w">造纸术</span></td>
+                                    <td><span class="text-b">印刷术</span></td>
+                                    <td><div class="text-d">指南针</div></td>
+                                    <td><div class="text-s">火药</div></td>
+                                </tr>
+                                <tr>
+                                    <td>天文历法</td>
+                                    <td><span class="text-w">《甘石星经》</span></td>
+                                    <td><span class="text-b">浑天仪地动仪</span></td>
+                                    <td><div class="text-d">《授时历》</div></td>
+                                </tr>
+                                <tr>
+                                    <td>数学成就</td>
+                                    <td><span class="text-w">《九章算术》</span></td>
+                                    <td><span class="text-b">祖冲之圆周率</span></td>
+                                    <td><div class="text-d">宋元四大家</div></td>
+                                </tr>
+                                <tr>
+                                    <td>农学与水利</td>
+                                    <td><span class="text-w">《齐民要术》</span></td>
+                                    <td><span class="text-b">都江堰</span></td>
+                                    <td><div class="text-d">《天工开物》</div></td>
+                                </tr>
+                                <tr>
+                                    <td>医学成就</td>
+                                    <td><span class="text-w">《黄帝内经》</span></td>
+                                    <td><span class="text-b">《本草纲目》</span></td>
+                                    <td><div class="text-d">《伤寒杂病论》</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="tit">中华文明主要文化成就时间轴</div>
+                    <div class="boxnav" style="height: 255px;">
+                        <div style="height: 0px" id="echart1"></div>
+                        <div class="leidanav">
+                            <ul class="clearfix">
+                                <li><span>公元前2070年</span><p>甲骨文</p></li>
+                                <li><span>公元前1046年</span><p>《周易》</p></li>
+                                <li><span>公元前256年</span><p>都江堰</p></li>
+                                <li><span>公元前100年</span><p>造纸术</p></li>
+                                <li><span>公元700年</span><p>唐诗</p></li>
+                                <li><span>公元1040年</span><p>活字印刷</p></li>
+                                <li><span>公元1405年</span><p>郑和下西洋</p></li>
+                                <li><span>公元2000年</span><p>北斗系统</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="width: 56%">
+                <div class="box">
+                    <div class="boxnav mapc" style="height: 550px; position: relative">
+                        <div class="mapnav">
+                            <ul>
+                                <li><div><span>覆盖密度</span><p>&nbsp;</p></div></li>
+                              
+                            </ul>
+                        </div>
+                        <div class="mapnav2">
+                            <div class="box">
+                                <div class="tit">不同时期成就数量变化趋势</div>
+                                <div class="boxnav" style="height: 130px;" id="sysx"></div>
+                                
+                            </div>
+                        </div>
+                        <div class="map" id="map"></div>
+                        <script>
+                            $(".mapbtn a").hover(function(){
+                                var ind = $(this).index();
+                                $(".mapnav ul").eq(ind).show().siblings().hide();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </li>
+            <li style="width: 22%">
+                <div class="box">
+                    <div class="tit">不同领域成就数量对比</div>
+                    <div class="boxnav" id="echart3" style="height: 200px;"></div>
+                </div>
+                <div class="box">
+                    <div class="tit">中国古代重要科技发明创造</div>
+                    <div class="boxnav" style="height: 250px;">
+                        <div style="height: 200px; float: left; width: 40%; padding: 0 5px;">
+                            <div class="tit02 text-b">热门话题榜</div>
+                            <div class="huati">
+                                <ul>
+                                    <li>1.四大发明 <span class="text-s"></span></li>
+                                    <li>2.古代的“黑科技”<span class="text-s"></span></li>
+                                    <li>3.被低估的发明<span class="text-d"></span></li>
+                                    <li>4.古代科技与现代生活 <span class="text-d"></span></li>
+                                    <li>5.古代科技的国际化<span class="text-d"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="height: 200px; float: left; width: 60%">
+                            <div class="text-b tit02" style="text-align: center;">成就</div>
+                            <div class="tagcloud">
+                                <a class="b01 co01" ">罗盘</a>
+                                <a class="b02 co02" ">风扇车</a>
+                                <a class="b03 co05" ">温室栽培</a>
+                                <a class="b05 co05" ">火箭</a>
+								<a class="b06 co03" ">瓷器</a>
+								<a class="b07 co04" ">二十四节气</a>
+								<a class="b08 co06" ">四诊法</a>
+								<a class="b09 co02" ">敦煌星图</a>
+								<a class="b02 co02" ">天元术</a>
+								<a class="b03 co05" ">小孔成像</a>
+								<a class="b04 co02" ">筹算</a>
+								<a class="b01 co01" ">圭表</a>
+								<a class="b02 co02" ">珠算</a>
+								<a class="b03 co05" ">水稻栽培</a>
+								<a class="b05 co05" ">水排</a>
+								<a class="b06 co03" ">提花机</a>
+								<a class="b07 co04" ">针灸</a>
+								<a class="b08 co06" ">勾股定理</a>
+                                <a class="b01 co01" ">丝绸之路</a>
+                            </div>
+                            <script type="text/javascript">
+                                tagcloud({
+                                    selector: ".tagcloud",
+                                    fontsize: 6,
+                                    radius: 40,
+                                    mspeed: "slow",
+                                    ispeed: "slow",
+                                    direction: 0,
+                                    keep: false
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="box" style="padding: 20px 0;">
+            <ul class="clearfix nav2">
+                <li style="width:25%"><div class="tit01">中国古代自然科学</div>
+                    <div class="" id="">
+                        <div style="float: left; width: 50%; height: 170px" id="fb01"></div>
+                        <div style="float: left; width: 50%; height: 170px" id="fb02"></div>
+                    </div>
+                    <div class="leidanav leidanav2">
+                        <ul class="clearfix">
+                            <li><span></span><p></p></li>
+                            <li><span></span><p></p></li>
+                            <li><span></span><p></p></li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="width:25%"><div class="tit01">国际传播范围和影响力</div>
+                    <div class="ftechart" id="echart4"></div>
+                </li>
+                <li style="width:25%"><div class="tit01">中华自然科学成就全球影响力对比</div>
+                    <div class="" style="height:100%;display: flex; align-items: center;">
+                        <div style="float: left; width: 50%; height: 100%" class="wancheng">
+                            <div><span>中国对全球古代重大科技发明的贡献率</span>
+                            <h3>173项<i></i></h3></div>
+                            <div class="yuan">
+                                <span>58%</span>
+                            </div>
+                        </div>
+                        <div style="float: left; width: 50%; height: 50%" id="myd1"></div>
+                    </div>
+                </li>
+                <li style="width:25%"><div class="tit01">中华优秀文化瑰宝</div>
+                    <div class="" id="">
+                        <div style="float: left; width: 50%; height: 200px" id="fb03"></div>
+                        <div style="float: left; width: 50%; height: 200px" id="fb04"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 构建时间线数据
+        const data = [
+            { "时期": "远古至先秦", "年份": -2070, "成就": "甲骨文", "描述": "中国最早成熟文字系统" },
+            { "时期": "远古至先秦", "年份": -1046, "成就": "《周易》", "描述": "阴阳辩证思想源头" },
+            { "时期": "远古至先秦", "年份": -256, "成就": "都江堰", "描述": "无坝引水工程" },
+            { "时期": "秦汉", "年份": -100, "成就": "造纸术", "描述": "蔡伦改进，知识传播革命" },
+            { "时期": "隋唐", "年份": 700, "成就": "唐诗", "描述": "李白、杜甫诗歌鼎盛" },
+            { "时期": "宋元", "年份": 1040, "成就": "活字印刷", "描述": "毕昇发明，推动文化传播" },
+            { "时期": "明清", "年份": 1405, "成就": "郑和下西洋", "描述": "航海技术领先世界" },
+            { "时期": "近现代", "年份": 2000, "成就": "北斗系统", "描述": "全球卫星定位技术" }
+        ];
+
+        // 创建时间轴
+        const fig = {
+            data: data.map(item => ({
+                x: [item.年份, item.年份],
+                y: [item.时期, item.时期],
+                mode: 'lines+markers+text',
+                text: item.成就,
+                hoverinfo: 'text',
+                hovertext: `${item.成就}<br>${item.描述}<br>年份: ${item.年份}`,
+                marker: {
+                    size: 12,
+                    color: item.时期 === "远古至先秦" ? "#FFB6C1" :
+                           item.时期 === "秦汉" ? "#ADD8E6" :
+                           item.时期 === "隋唐" ? "#98FB98" :
+                           item.时期 === "宋元" ? "#F0E68C" :
+                           item.时期 === "明清" ? "#DDA0DD" :
+                           item.时期 === "近现代" ? "#87CEFA" : "#FFFFFF"
+                },
+                line: {
+                    color: item.时期 === "远古至先秦" ? "#FFB6C1" :
+                           item.时期 === "秦汉" ? "#ADD8E6" :
+                           item.时期 === "隋唐" ? "#98FB98" :
+                           item.时期 === "宋元" ? "#F0E68C" :
+                           item.时期 === "明清" ? "#DDA0DD" :
+                           item.时期 === "近现代" ? "#87CEFA" : "#FFFFFF"
+                }
+            })),
+            layout: {
+                title: "时间轴",
+                font: { size: 10 },
+                height: 230,
+                showlegend: false,
+                xaxis: {
+                    title: "年份",
+                    tickmode: "linear",
+                    dtick: 500,
+                    range: [-2500, 2500]
+                },
+                yaxis: {
+                    title: "",
+                    categoryorder: "array",
+                    categoryarray: ["远古至先秦", "秦汉", "隋唐", "宋元", "明清", "近现代"]
+                },
+                plot_bgcolor: "white",
+                paper_bgcolor: "white",
+                margin: { t: 40, b: 40, l: 100, r: 40 }
+            }
+        };
+
+        // 渲染图表
+        document.addEventListener('DOMContentLoaded', function() {
+            Plotly.newPlot('echart1', fig.data, fig.layout);
+        });
+    </script>
+</body>
+</html>
